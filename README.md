@@ -1,2 +1,2 @@
 # Caramba-An-Khor-Perdu
-Reinforcement Learning based An'Khor player
+Reinforcement Learning based Ankh'Or player
