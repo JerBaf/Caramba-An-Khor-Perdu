@@ -274,9 +274,13 @@ class Shop:
             
     def destroy(self,player_ressource_pool,stack_choice):
         """ Destroy the first tile of the queue in exchange of an Ankh. """
-        player_ressource_state = player_ressource_pool.state()
-        if player_ressource_state[Token.SPECIAL_COLOR] < 1:
+        # Not enough tokens
+        player_special_tokens = player_ressource_pool.ankh_tokens
+        if len(player_special_tokens) < 1:
             raise Exception(f"Not enough {Token.SPECIAL_COLOR} tokens to destroy.")
+        # Only just drawn tokens
+        if not player_special_tokens[0].available:
+            raise Exception(f"No available {Token.SPECIAL_COLOR} token to destroy.")
         # Make the transaction
         player_ressource_pool.draw(Token.SPECIAL_COLOR)
         self.ressource_pool.fill(Token.SPECIAL_COLOR)
